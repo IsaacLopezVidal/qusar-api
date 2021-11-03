@@ -6,7 +6,6 @@ var express = require('express');
 var app = express();
 
 app.get('/', function(req, res){
-   res.send("Hello world!");
+   res.send("Hello world! desde repositorio");
 });
-
-app.listen(3000);
+exports.api=app;

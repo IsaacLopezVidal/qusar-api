@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "functions-framework --target=api"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@google-cloud/functions-framework": "^1.9.0",
     "nodemon": "^2.0.14"
   }
 }
