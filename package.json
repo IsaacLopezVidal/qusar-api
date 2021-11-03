@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "functions-framework --target=api"
+    "start": "functions-framework --target=topsecret"
   },
   "keywords": [],
   "author": "",
