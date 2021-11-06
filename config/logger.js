@@ -1,8 +1,6 @@
-const winston = require('winston');
-const {LoggingWinston} = require('@google-cloud/logging-winston');
-const loggingWinston = new LoggingWinston();
-const logger = winston.createLogger({
-  level: 'info',
-  transports: [new winston.transports.Console(), loggingWinston],
-});
+const fs = require('fs')
+const morgan = require('morgan')
+const path = require('path')
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+var logger = morgan('combined', { stream: accessLogStream })
 exports.logger=logger;

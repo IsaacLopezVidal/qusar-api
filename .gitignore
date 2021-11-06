@@ -1,2 +1,4 @@
 node_modules/
 cloud_sql_proxy.exe
+package-lock.json
+config/access.log

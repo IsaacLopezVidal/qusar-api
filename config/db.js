@@ -1,6 +1,5 @@
 const mysql = require('promise-mysql');
 const fs = require('fs');
-
 let pool;
 const createTcpPoolSslCerts = async config => {
     const dbSocketAddr = process.env.DB_HOST.split(':');
@@ -69,6 +68,7 @@ const createTcpPoolSslCerts = async config => {
         request varchar(1000) NOT NULL, 
         ip varchar(30) NOT NULL, 
         time_cast timestamp NOT NULL,
+        method VARCHAR(10) NOT NULL,
         PRIMARY KEY (resques_id) 
         );`
     );
@@ -88,5 +88,7 @@ const createTcpPoolSslCerts = async config => {
       });
   
 
-exports.pool = pool,
-exports.createPoolAndEnsureSchema=createPoolAndEnsureSchema
+module.exports={
+  pool,
+  createPoolAndEnsureSchema
+} 
