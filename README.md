@@ -14,14 +14,17 @@ npm install
    - Cloud Source Repositories
    - Google Cloud SDK
 
-## EJECUCIÓN EN NUBE
+## EJECUCIÓN PÚBLICA
 
 Las siguientes son las URL's publicas
 - 1 https://us-central1-challege-quasar.cloudfunctions.net/api/topsecret 
 - 2 https://us-central1-challege-quasar.cloudfunctions.net/api/topsecret_spllit 
    
 
+# CONFIGURACIONES LOCALES
+
 ## EJECUCIÓN LOCAL
+
 Configuación de variables de entorno en PowerShell de windows.
 Usar en caso de hacer pruebas en una instancia local de MySQL.
 ```powershell
@@ -30,16 +33,6 @@ $env:DB_HOST="127.0.0.1:3306"
 $env:DB_USER="<DB_USER_NAME>"
 $env:DB_PASS="<DB_PASSWORD>"
 $env:DB_NAME="<DB_NAME>"
-```
-
-#### Datos de prueba
-Si se desea probar con la conexion a Cloud SQL - MySQL revisar el siguiente punto
-```powershell
-$env:CLOUD_SQL_CONNECTION_NAME="challege-quasar:us-central1:mysql-challege"
-$env:DB_HOST="127.0.0.1:3306"
-$env:DB_USER="isaacdb"
-$env:DB_PASS="db123"
-$env:DB_NAME="dbchallege"
 ```
 
 
