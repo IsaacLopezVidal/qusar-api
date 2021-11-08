@@ -1,10 +1,61 @@
-# INSTALACIÓN GOOGLE ClOUD
-Instruccion para PowerShell en Windows
-```powershell
-(New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe", "$env:Temp\GoogleCloudSDKInstaller.exe")
+# USO
 
-& $env:Temp\GoogleCloudSDKInstaller.exe
+Iniciamos instalando todas las depencias del proyecto con la siguiente instruccion
+ ```sh
+npm install
+ ```
+
+
+## Herramientas
+
+ - Google Cloud Plataform
+   - Cloud SQL instancia con MySQL
+   - Cloud Functions
+   - Cloud Source Repositories
+   - Google Cloud SDK
+
+
+## INSTALACIÓN GOOGLE CLOUD
+
+    Instruccion para PowerShell en Windows
+    ```powershell
+    (New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe", "$env:Temp\GoogleCloudSDKInstaller.exe")
+
+    & $env:Temp\GoogleCloudSDKInstaller.exe
+    ```
+
+
+## EJECUCIÓN LOCAL
+Configuación de variables de entorno en PowerShell de windows.
+Usar en caso de hacer pruebas en una instancia local de MySQL.
+```powershell
+$env:CLOUD_SQL_CONNECTION_NAME='<MY-PROJECT>:<INSTANCE-REGION>:<MY-DATABASE>'
+$env:DB_HOST="127.0.0.1:3306"
+$env:DB_USER="<DB_USER_NAME>"
+$env:DB_PASS="<DB_PASSWORD>"
+$env:DB_NAME="<DB_NAME>"
 ```
+
+#### Datos de prueba
+Si se desea probar con la conexion a Cloud SQL - MySQL revisar el siguiente punto
+```powershell
+$env:CLOUD_SQL_CONNECTION_NAME="challege-quasar:us-central1:mysql-challege"
+$env:DB_HOST="127.0.0.1:3306"
+$env:DB_USER="isaacdb"
+$env:DB_PASS="db123"
+$env:DB_NAME="dbchallege"
+```
+ 
+## Ejecucion de proxy para ambiente local con acceso a Cloud SQL - MySQL 
+
+Para poder ejecutar esta instrucción es necesario descargar el cloud_sql_proxy_x64.exe para el caso de windows; si es en algun otro ambiente de desarrollo, visitar [DOCUMENTACION] oficial.
+
+Se debe tomar en cuenta que ya debe de existir una base y haber instalado **Google Cloud SDK Shell** de lo contrario no se podra ejecutar esta instrucción, también es importante recalcar que para el correcto funcionamiento debe colocarse en la carperta raiz del proyecto como se muesta en la imagen.
+
+```sh
+cloud_sql_proxy -instances=<MY-PROJECT>:<INSTANCE-REGION>:<MY-DATABASE>=tcp:3306
+```
+![Screenshot](https://github.com/IsaacLopezVidal/qusar-api/blob/master/docs/cloud_sql_proxy.jpg)
 
  # DEPLOY
  ## GOOGLE CLOUD FUNCTION 
@@ -16,23 +67,9 @@ Instruccion para PowerShell en Windows
  --set-env-vars DB_USER=<DB_USER_NAME>,DB_PASS=<DB_PASSWORD>,DB_NAME=<DB_NAME>,CLOUD_SQL_CONNECTION_NAME=<MY-PROJECT>:<INSTANCE-REGION>:<MY-DATABASE>;
  ```
 
-# EJECICION LOCAL
-Configuación de variables de entorno en PowerShell de windows.
-Usar en caso de hacer pruebas en una instancia local de MySQL.
-```powershell
-$env:CLOUD_SQL_CONNECTION_NAME='<MY-PROJECT>:<INSTANCE-REGION>:<MY-DATABASE>'
-$env:DB_HOST="127.0.0.1:3306"
-$env:DB_USER="<DB_USER_NAME>"
-$env:DB_PASS="<DB_PASSWORD>"
-$env:DB_NAME="<DB_NAME>"
-```
 
-## Ejecucion de proxy para ambiente local con acceso a Cloud SQL - MySQL
-Para poder ejecutar esta instruccion es necesario descargar el cloud_sql_proxy_x64.exe para caso de windows si necesitas mas informacion y enntra a la documentacion oficial [DOCUMENTACION], se debe tomar en cuenta que ya debe de existir una base y haber instalado **Google Cloud SDK Shell** de lo contrario no se podra ejecutar esta instruccion, tambien es importante recalcar que el correcto funcionamiento debe colocarse en la carperta raiz del proyecto como se muesta en la imagen.
-```sh
-cloud_sql_proxy -instances=<MY-PROJECT>:<INSTANCE-REGION>:<MY-DATABASE>=tcp:3306
-```
-![Screenshot](https://github.com/IsaacLopezVidal/qusar-api/blob/master/docs/cloud_sql_proxy.jpg)
+
+
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
