@@ -33,7 +33,6 @@ router.post('/',validationSchema,helperCatch(async(req,res)=>{
     _satellites.forEach(e=>distances.push(e.distance))
     _nave.message = GetMessage(messages)
     _nave.position=GetLocation(distances);
-    // _nave.position = new Posicion()
     return res.status(200).json(_nave)
 }));
 
