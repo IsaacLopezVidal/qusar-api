@@ -1,6 +1,6 @@
 # USO
 
-Iniciamos instalando todas las depencias del proyecto con la siguiente instruccion
+Iniciamos instalando todas las dependencias del proyecto con la siguiente instrucción
  ```sh
 npm install
  ```
@@ -14,16 +14,12 @@ npm install
    - Cloud Source Repositories
    - Google Cloud SDK
 
+## EJECUCIÓN EN NUBE
 
-## INSTALACIÓN GOOGLE CLOUD
-
-    Instruccion para PowerShell en Windows
-    ```powershell
-    (New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe", "$env:Temp\GoogleCloudSDKInstaller.exe")
-
-    & $env:Temp\GoogleCloudSDKInstaller.exe
-    ```
-
+Las siguientes son las URL's publicas
+- 1 https://us-central1-challege-quasar.cloudfunctions.net/api/topsecret 
+- 2 https://us-central1-challege-quasar.cloudfunctions.net/api/topsecret_spllit 
+   
 
 ## EJECUCIÓN LOCAL
 Configuación de variables de entorno en PowerShell de windows.
@@ -45,7 +41,16 @@ $env:DB_USER="isaacdb"
 $env:DB_PASS="db123"
 $env:DB_NAME="dbchallege"
 ```
- 
+
+
+## INSTALACIÓN GOOGLE CLOUD
+
+Instruccion para PowerShell en Windows
+```powershell
+(New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe", "$env:Temp\GoogleCloudSDKInstaller.exe")
+
+& $env:Temp\GoogleCloudSDKInstaller.exe
+```
 ## Ejecucion de proxy para ambiente local con acceso a Cloud SQL - MySQL 
 
 Para poder ejecutar esta instrucción es necesario descargar el cloud_sql_proxy_x64.exe para el caso de windows; si es en algun otro ambiente de desarrollo, visitar [DOCUMENTACION] oficial.
@@ -68,6 +73,7 @@ cloud_sql_proxy -instances=<MY-PROJECT>:<INSTANCE-REGION>:<MY-DATABASE>=tcp:3306
  ```
 
 
+# Evidencias
 
 
 
