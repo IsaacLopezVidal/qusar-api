@@ -1,5 +1,5 @@
 const Nave = require('./Nave');
-class Satelite  extends Nave{
+class Satelite  {
     distance=0.0;
     name='';
     message=[];

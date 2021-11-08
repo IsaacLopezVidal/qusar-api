@@ -72,7 +72,6 @@ const createTcpPoolSslCerts = async config => {
         PRIMARY KEY (resques_id) 
         );`
     );
-    console.log("Ensured that table 'top_secret' exists");
   };
   
   const createPoolAndEnsureSchema = async () =>

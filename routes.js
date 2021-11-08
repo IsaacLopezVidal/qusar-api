@@ -1,5 +1,5 @@
 const topSecretRoute = require('./routes/topsecretRoute')
-const {topSecretMiddleware} = require('./middleware/topsecretMiddleware')
+const topSecretMiddleware = require('./middleware/topSecret/topsecretMiddleware')
 const routes=[
     {
         path:"/topsecret",
