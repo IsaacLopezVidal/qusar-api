@@ -82,14 +82,11 @@ const createTcpPoolSslCerts = async config => {
       ip varchar(30) NOT NULL, 
       time_cast timestamp NOT NULL,
       method VARCHAR(10) NOT NULL,
-      PRIMARY KEY (resques_id)); `
+      PRIMARY KEY (resques_id)
+      ); `
     await pool.query(query);
-
     const result =  await pool.query(` SELECT name,x,y FROM astro_naves; `);
-    const strJson=JSON.stringify(result);
-    const {astroNaves} = new AstroNaves(JSON.parse(strJson))
-
-    if(!astroNaves.length){
+    if(result.length===0){
       await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('kenobi',-500,-200);")
       await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('skyealker',100,-100);")
       await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('sato',500,100);")
