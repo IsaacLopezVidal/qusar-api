@@ -1,8 +1,8 @@
 class LocationError extends Error{
     constructor(error){
-        super(error.message)
+        super(error)
         this.name="LocationError"
-        this.status=402
+        this.status=404
     }
     getErrorJson(){
         return{

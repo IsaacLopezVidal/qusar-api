@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const AstroNaves = require('../models/AstroNaves')
 let pool;
-let astroNaves = new AstroNaves([]);
 const createTcpPoolSslCerts = async config => {
     const dbSocketAddr = process.env.DB_HOST.split(':');
     return mysql.createPool({
@@ -85,21 +84,20 @@ const createTcpPoolSslCerts = async config => {
       method VARCHAR(10) NOT NULL,
       PRIMARY KEY (resques_id)); `
     await pool.query(query);
+
     const result =  await pool.query(` SELECT name,x,y FROM astro_naves; `);
-    
-    if(result?.length){
-      const {astroNaves:_astroNaves} = new AstroNaves(result)
-      console.log("_astroNaves",_astroNaves)
-      astroNaves=_astroNaves;
-    }else{
-        await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('kenobi',-500,-200);")
-        await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('skyealker',100,-100);")
-        await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('sato',500,100);")
-        await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('nave',-300.58,-899.13);")
+    const strJson=JSON.stringify(result);
+    const {astroNaves} = new AstroNaves(JSON.parse(strJson))
+
+    if(!astroNaves.length){
+      await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('kenobi',-500,-200);")
+      await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('skyealker',100,-100);")
+      await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('sato',500,100);")
+      await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('nave',-300.58,-899.13);") 
     }
 
   };
-  
+
   const createPoolAndEnsureSchema = async () =>
     await createPool()
       .then(async pool => {
@@ -115,6 +113,5 @@ const createTcpPoolSslCerts = async config => {
 
 module.exports={
   pool,
-  createPoolAndEnsureSchema,
-  astroNaves
+  createPoolAndEnsureSchema
 } 

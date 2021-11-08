@@ -14,7 +14,6 @@ function helperCatch(callback){
         await callback(req,res,next)
       }
       catch(e){
-        console.log(e)
         const newError=new topSecretError(e)
         if(e.name===newError.name)
           next(newError)
@@ -32,7 +31,7 @@ router.post('/',validationSchema,helperCatch(async(req,res)=>{
     _satellites.forEach(e=>messages.push(e.message))
     _satellites.forEach(e=>distances.push(e.distance))
     _nave.message = GetMessage(messages)
-    _nave.position=GetLocation(distances);
+    _nave.position= await GetLocation(distances);
     return res.status(200).json(_nave)
 }));
 
