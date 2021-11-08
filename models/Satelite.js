@@ -1,4 +1,3 @@
-const Nave = require('./Nave');
 class Satelite  {
     distance=0.0;
     name='';

@@ -1,8 +1,9 @@
 const mysql = require('promise-mysql');
 const fs = require('fs');
 const path = require('path');
-
+const AstroNaves = require('../models/AstroNaves')
 let pool;
+let astroNaves = new AstroNaves([]);
 const createTcpPoolSslCerts = async config => {
     const dbSocketAddr = process.env.DB_HOST.split(':');
     return mysql.createPool({
@@ -65,12 +66,14 @@ const createTcpPoolSslCerts = async config => {
   
   const ensureSchema = async pool => {
     let query =`
-    CREATE TABLE IF NOT EXISTS satellites ( 
-      satellite_id SERIAL NOT NULL,
-      name varchar(50) NOT NULL,  
-      time_cast timestamp NOT NULL,
-      PRIMARY KEY (satellite_id) 
-      );
+      CREATE TABLE IF NOT EXISTS astro_naves(
+        satellite_id SERIAL NOT NULL,
+        name varchar(50) NOT NULL,  
+        x float NOT NULL,  
+        y float NOT NULL,  
+        time_cast timestamp NOT NULL,
+        PRIMARY KEY (satellite_id) 
+        );
     `
     await pool.query(query);
     query =`
@@ -80,53 +83,21 @@ const createTcpPoolSslCerts = async config => {
       ip varchar(30) NOT NULL, 
       time_cast timestamp NOT NULL,
       method VARCHAR(10) NOT NULL,
-      PRIMARY KEY (resques_id) 
-);
-    `
+      PRIMARY KEY (resques_id)); `
     await pool.query(query);
-    query =`
-    CREATE TABLE IF NOT EXISTS satellites_positions( 
-      id SERIAL NOT NULL,
-      x float NOT NULL,  
-      y float NOT NULL,  
-      time_cast timestamp NOT NULL,
-      FOREIGN KEY (id) 
-              REFERENCES satellites(satellite_id)
-              ON DELETE CASCADE
-      );
-    `
-    await pool.query(query);
+    const result =  await pool.query(` SELECT name,x,y FROM astro_naves; `);
+    
+    if(result?.length){
+      const {astroNaves:_astroNaves} = new AstroNaves(result)
+      console.log("_astroNaves",_astroNaves)
+      astroNaves=_astroNaves;
+    }else{
+        await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('kenobi',-500,-200);")
+        await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('skyealker',100,-100);")
+        await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('sato',500,100);")
+        await pool.query("INSERT INTO astro_naves(name,x,y) VALUES ('nave',-300.58,-899.13);")
+    }
 
-    query =`
-  
-      DECLARE totalOrder INT DEFAULT 0;
-        DECLARE satellite_id INT DEFAULT 0 ;
-        
-        SELECT COUNT(*) 
-        INTO totalOrder
-        FROM satellites;     
-        IF totalOrder=0 THEN
-    
-            INSERT INTO satellites(name) VALUES ('kenobi');
-            SET satellite_id:=LAST_INSERT_ID();
-            INSERT INTO satellites_positions (id,x,y) VALUES(satellite_id,-500,-200);
-    
-            INSERT INTO satellites(name) VALUES ('skywalker');
-            SET satellite_id:=LAST_INSERT_ID();
-            INSERT INTO satellites_positions (id,x,y) VALUES(satellite_id,100,-100);
-    
-            INSERT INTO satellites(name) VALUES ('sato');
-            SET satellite_id:=LAST_INSERT_ID();
-            INSERT INTO satellites_positions (id,x,y) VALUES(satellite_id,500,100);
-    
-        END IF;
-    
-    `
-    await pool.query(query);
-    // query =`
-    // CALL cargas_iniciales();
-    // `
-    // await pool.query(query);
   };
   
   const createPoolAndEnsureSchema = async () =>
@@ -140,9 +111,10 @@ const createTcpPoolSslCerts = async config => {
         console.error(err)
         throw err;
       });
-  
+
 
 module.exports={
   pool,
-  createPoolAndEnsureSchema
+  createPoolAndEnsureSchema,
+  astroNaves
 } 
