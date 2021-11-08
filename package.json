@@ -4,7 +4,9 @@
   "main": "app.js",
   "scripts": {
     "dev": "functions-framework --target=topsecret",
-    "start": "nodemon --exec npm run dev "
+    "start": "nodemon --exec npm run dev ",
+    "test": "npm run system-test",
+    "system-test": "mocha app.test.js --timeout=60000 --exit"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,8 @@
   },
   "devDependencies": {
     "@google-cloud/functions-framework": "^1.9.0",
-    "nodemon": "^2.0.14"
+    "mocha": "^9.1.3",
+    "nodemon": "^2.0.14",
+    "supertest": "^6.1.6"
   }
 }

@@ -14,6 +14,6 @@ routes.forEach(({ path, route, middleware }) => {
     app.use(path, route);
   }
 });
-app.all("*",(req,res)=>(res.send(`<center><h1>Pagina no encontrada</h1><br/><hr/><h2>Error 404</h2></center>`)))
+app.all("*",(req,res)=>(res.status(404).send(`<center><h1>Pagina no encontrada</h1><br/><hr/><h2>Error 404</h2></center>`)))
 app.use(errors)
 exports.topsecret = app;

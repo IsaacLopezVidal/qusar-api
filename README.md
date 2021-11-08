@@ -6,13 +6,16 @@ npm install
  ```
 
 
-## Herramientas
+## Herramientas de desarrollo
 
  - Google Cloud Plataform
    - Cloud SQL instancia con MySQL
    - Cloud Functions
    - Cloud Source Repositories
    - Google Cloud SDK
+ - Node JS 14 
+
+
 
 ## EJECUCIÓN PÚBLICA
 
@@ -68,6 +71,10 @@ cloud_sql_proxy -instances=<MY-PROJECT>:<INSTANCE-REGION>:<MY-DATABASE>=tcp:3306
 
 # Evidencias
 
+![Screenshot](https://github.com/IsaacLopezVidal/qusar-api/blob/master/docs/POST_NO.jpg)
+![Screenshot](https://github.com/IsaacLopezVidal/qusar-api/blob/master/docs/POST.jpg)
+![Screenshot](https://github.com/IsaacLopezVidal/qusar-api/blob/master/docs/POST_GET_OK.jpg)
+![Screenshot](https://github.com/IsaacLopezVidal/qusar-api/blob/master/docs/POST_GET.jpg)
 
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
