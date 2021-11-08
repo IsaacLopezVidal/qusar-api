@@ -1,19 +1,17 @@
 const express = require('express');
 const router =express.Router();
-const validationSchema = require('../middleware/topSecret/validationSchema')
-const topSecretError = require('../error/topSecretError')
-const Satellites = require('../models/Satelites')
 const GetMessage = require('../services/message')
 const GetLocation = require('../services/location')
+const TopSecretSplitError = require('../error/topSecretSplitError')
+const validationSchema = require('../middleware/topSecretSplit/validationSchema')
 const Nave = require('../models/Nave');
-
 function helperCatch(callback){
     return async (req,res,next)=>{
       try{
         await callback(req,res,next)
       }
       catch(e){
-        const newError=new topSecretError(e)
+        const newError=new TopSecretSplitError(e)
         if(e.name===newError.name)
           next(newError)
         next(e)
@@ -21,18 +19,17 @@ function helperCatch(callback){
     }
   }
 
-router.post('/',validationSchema,helperCatch(async(req,res)=>{
-    const {satellites} = req.body
-    const {satellites:_satellites} = new Satellites(satellites);
-    const messages=[]
-    const distances=[]
+router.post("/:name",validationSchema,helperCatch(async (req,res)=>{
+    const {distance,message} = req.body;
+    const {name} = req.params;
+    const messages=[];
+    const distances=[];
     const _nave= new Nave()
-    _satellites.forEach(e=>messages.push(e.message))
-    _satellites.forEach(e=>distances.push(e.distance))
+    messages.push(message);
+    distances.push(distance);
     _nave.message = GetMessage(messages)
     _nave.position= await GetLocation(distances);
     return res.status(200).json(_nave)
-}));
-
+}))
 
 module.exports=router;
