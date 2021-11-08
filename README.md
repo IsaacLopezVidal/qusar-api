@@ -32,7 +32,8 @@ Para poder ejecutar esta instruccion es necesario descargar el cloud_sql_proxy_x
 ```sh
 cloud_sql_proxy -instances=<MY-PROJECT>:<INSTANCE-REGION>:<MY-DATABASE>=tcp:3306
 ```
+![Screenshot](https://github.com/IsaacLopezVidal/qusar-api/blob/master/docs/cloud_sql_proxy.jpg)
+
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
 [DOCUMENTACION]: <https://cloud.google.com/sql/docs/mysql/connect-admin-proxy>
-![Screenshot]:(https://github.com/IsaacLopezVidal/qusar-api/blob/master/docs/cloud_sql_proxy.jpg)
