@@ -4,6 +4,10 @@ Iniciamos instalando todas las dependencias del proyecto con la siguiente instru
  ```sh
 npm install
  ```
+ 
+  ```sh
+npm start
+ ```
 
 
 ## Herramientas de desarrollo
